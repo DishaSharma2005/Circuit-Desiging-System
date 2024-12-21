@@ -22,14 +22,13 @@ int main() {
     int numResistors;
     float voltage;
     Welcome_Message();
+    // Input Voltage 
+    printf("Enter the voltage: ");
+    scanf("%f", &voltage);
 
     // Input number of resistors
     printf("Enter the number of resistors: ");
     scanf("%d", &numResistors);
-
-    // Input Voltage 
-    printf("Enter the voltage: ");
-    scanf("%f", &voltage);
 
     // Create an array of struct Resistors
     struct Resistors Resistor[numResistors];
@@ -81,13 +80,15 @@ void Confirm(int numResistors, struct Resistors Resistor[], bool map[], float to
 void Welcome_Message() {
     printf("Hello! This side Disha, Creator of the project\n");
     printf("Let me tell you what my project is about:\n");
-    printf("1. Enter the number of resistors\n");
-    printf("2. Enter the value of Resistors\n");
-    printf("3. Enter the choice of series\n");
-    printf("4. Enter the choice of parallel\n");
-    printf("5. Confirm after reviewing the connections\n");
-    printf("6. Get the total resistance, Current, Resistance at each resistor\n");
-    printf("7. Get the circuit design\n");
+    printf("1. Enter the voltage \n");
+    printf("2. Enter the number of resistors\n");
+    printf("3. Enter the value of Resistors\n");
+    printf("4. Enter the choice of series\n");
+    printf("5. Enter the choice of parallel\n");
+    printf("6. Confirm after reviewing the connections\n");
+    printf("7. Get the total resistance,total current, current at each resistor & voltage drop at every resistor. \n");
+    printf(" \n");
+   
 }
 
 // Function to input resistance values
@@ -171,6 +172,7 @@ void Calculate_VoltageDrop(int numResistors, struct Resistors Resistor[], float 
         float voltageDrop = current * Resistor[i].resistance;
         printf("Resistor %d: %.2f V\n", i + 1, voltageDrop);
     }
+    printf(" \n THANK YOU :)!!!!");
 }
 
 // Function to reset the map array
