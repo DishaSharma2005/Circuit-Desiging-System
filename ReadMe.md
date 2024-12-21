@@ -17,9 +17,8 @@ This project allows users to perform the following actions:
 
 5. Confirm after reviewing the connections: Once the resistors have been connected in series and parallel, the user is asked to confirm the setup.
 
-6. Get total resistance, current, and voltage drop: After confirming the circuit, the system calculates and displays the total resistance of the circuit, the total current flowing through it, and the voltage drop across each resistor.
+6. Get total resistance, current, and voltage drop: After confirming the circuit, the system calculates and displays the total resistance of the circuit, the total current flowing through it, and the voltage drop & current  across each resistor.
 
-7. Get the circuit design: The system visualizes the circuit design based on the series and parallel connections made by the user.
 
 ---
 
@@ -29,9 +28,7 @@ This project allows users to perform the following actions:
 
 2. Make series and parallel connections: You will be asked to choose which resistors to connect in series and which to connect in parallel.
 
-3. Confirm connections: Once you have selected the connections, the system will display the total resistance of the circuit, the current, and the voltage drop.
-
-4. Circuit Visualization: Finally, you can view the design of the circuit showing the connections in series and parallel.
+3. Confirm connections: Once you have selected the connections, the system will display the total resistance &current  of the circuit, the current, and the voltage drop at each resistor .
 
 
 ## License
