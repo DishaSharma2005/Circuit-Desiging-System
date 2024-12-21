@@ -4,6 +4,7 @@
 // Struct definition for Resistors
 struct Resistors {
     float resistance;
+    float current;
 };
 
 // Function declarations
@@ -12,7 +13,10 @@ void Input_ValueResistance(int numResistors, struct Resistors Resistor[]);
 void Print_Values(int numResistors, struct Resistors Resistor[]);
 float Choice_SeriesConnections(int numResistors, struct Resistors Resistor[], bool map[]);
 float Choice_ParallelConnections(int numResistors, struct Resistors Resistor[], bool map[]);
-void Confirm(int numResistors, struct Resistors Resistor[], bool map[], float totalSeries, float totalParallel);
+void Confirm(int numResistors, struct Resistors Resistor[], bool map[], float totalSeries, float totalParallel, float voltage);
+void Calculate_Current(int numResistors, struct Resistors Resistor[], float voltage);
+void Calculate_VoltageDrop(int numResistors, struct Resistors Resistor[], float current);
+void Reset_Map(int numResistors, bool map[]);
 
 int main() {
     int numResistors;
@@ -32,9 +36,7 @@ int main() {
 
     // Create an array map to track if choice is already used or not
     bool map[numResistors];
-    for (int i = 0; i < numResistors; i++) {
-        map[i] = false;
-    }
+    Reset_Map(numResistors, map);
 
     // Call functions
     Input_ValueResistance(numResistors, Resistor);
@@ -43,13 +45,13 @@ int main() {
     float totalSeries = Choice_SeriesConnections(numResistors, Resistor, map);
     float totalParallel = Choice_ParallelConnections(numResistors, Resistor, map);
 
-    Confirm(numResistors, Resistor, map, totalSeries, totalParallel);
+    Confirm(numResistors, Resistor, map, totalSeries, totalParallel, voltage);
 
     return 0;
 }
 
 // Confirmation function
-void Confirm(int numResistors, struct Resistors Resistor[], bool map[], float totalSeries, float totalParallel) {
+void Confirm(int numResistors, struct Resistors Resistor[], bool map[], float totalSeries, float totalParallel, float voltage) {
     char confirm;
     printf("Do you confirm the connections? Enter Y/y for Yes, N/n for No: ");
     scanf(" %c", &confirm);
@@ -57,14 +59,21 @@ void Confirm(int numResistors, struct Resistors Resistor[], bool map[], float to
     if (confirm == 'y' || confirm == 'Y') {
         float totalResistance = totalSeries + (totalParallel > 0 ? 1.0 / totalParallel : 0);
         printf("Total resistance offered by circuit: %.2f Ohms\n", totalResistance);
+
+        // Calculate and display current
+        float totalCurrent = voltage / totalResistance;
+        printf("Total current through the circuit: %.2f A\n", totalCurrent);
+        Calculate_Current(numResistors, Resistor, voltage);
+        Calculate_VoltageDrop(numResistors, Resistor, totalCurrent);
     } else if (confirm == 'n' || confirm == 'N') {
         printf("Re-enter the connections:\n");
-        totalSeries = Choice_SeriesConnections(numResistors, Resistor, map);
-        totalParallel = Choice_ParallelConnections(numResistors, Resistor, map);
-        Confirm(numResistors, Resistor, map, totalSeries, totalParallel);
+        Reset_Map(numResistors, map);
+        float totalSeries = Choice_SeriesConnections(numResistors, Resistor, map);
+        float totalParallel = Choice_ParallelConnections(numResistors, Resistor, map);
+        Confirm(numResistors, Resistor, map, totalSeries, totalParallel, voltage);
     } else {
         printf("Invalid input. Please try again.\n");
-        Confirm(numResistors, Resistor, map, totalSeries, totalParallel);
+        Confirm(numResistors, Resistor, map, totalSeries, totalParallel, voltage);
     }
 }
 
@@ -86,6 +95,7 @@ void Input_ValueResistance(int numResistors, struct Resistors Resistor[]) {
     for (int i = 0; i < numResistors; i++) {
         printf("Enter the resistance (in Ohms) of resistor %d: ", i + 1);
         scanf("%f", &Resistor[i].resistance);
+        Resistor[i].current = 0; // Initialize current to 0
     }
 }
 
@@ -143,4 +153,29 @@ float Choice_ParallelConnections(int numResistors, struct Resistors Resistor[], 
         }
     }
     return reciprocalTotalParallel;
+}
+
+// Function to calculate and display current through each resistor
+void Calculate_Current(int numResistors, struct Resistors Resistor[], float voltage) {
+    printf("Current through each resistor:\n");
+    for (int i = 0; i < numResistors; i++) {
+        Resistor[i].current = voltage / Resistor[i].resistance;
+        printf("Resistor %d: %.2f A\n", i + 1, Resistor[i].current);
+    }
+}
+
+// Function to calculate and display voltage drop across each resistor
+void Calculate_VoltageDrop(int numResistors, struct Resistors Resistor[], float current) {
+    printf("\nVoltage Drops across each Resistor:\n");
+    for (int i = 0; i < numResistors; i++) {
+        float voltageDrop = current * Resistor[i].resistance;
+        printf("Resistor %d: %.2f V\n", i + 1, voltageDrop);
+    }
+}
+
+// Function to reset the map array
+void Reset_Map(int numResistors, bool map[]) {
+    for (int i = 0; i < numResistors; i++) {
+        map[i] = false;
+    }
 }
