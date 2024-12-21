@@ -39,4 +39,4 @@ This project is open source and free to use. You can modify and distribute it un
 
 ## Contact
 For any questions or further inquiries, you can reach out to:
-- **Creator**: **Disha*
+- **Creator**: *Disha*
