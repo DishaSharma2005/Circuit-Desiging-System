@@ -7,7 +7,7 @@ Hello! This is Disha, the creator of this project. In this project, I have desig
 ### Features
 This project allows users to perform the following actions:
 
-1. **Enter the number of resistors**: The user can input the number of resistors in the circuit.
+1. Enter the number of resistors: The user can input the number of resistors in the circuit.
    
 2. Enter the value of resistors: The user is prompted to input the resistance values of each resistor in the circuit. 
 
@@ -39,4 +39,4 @@ This project is open source and free to use. You can modify and distribute it un
 
 ## Contact
 For any questions or further inquiries, you can reach out to:
-- Creator: Disha
+- **Creator**: **Disha*
